@@ -1,4 +1,5 @@
-var Handlebars = require('handlebars');
+var Handlebars = require('handlebars')
+  , templateFinder = require('./shared/templateFinder')(Handlebars);
 
 /**
  * Export the `Handlebars` object, so other modules can add helpers, partials, etc.
@@ -8,7 +9,12 @@ exports.Handlebars = Handlebars;
 /**
  * `getTemplate` is available on both client and server.
  */
-exports.getTemplate = require('./shared/templateFinder')(Handlebars).getTemplate;
+exports.getTemplate = templateFinder.getTemplate;
+
+/**
+ * Expose `templatePatterns` for manipulating how `getTemplate` finds templates.
+ */
+exports.templatePatterns = templateFinder.templatePatterns;
 
 /**
  * `getLayout` should only be used on the server.
