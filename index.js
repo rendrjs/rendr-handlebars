@@ -27,6 +27,15 @@ if (typeof window === 'undefined') {
   };
 }
 
+/** 
+ * Register the rendr App so that in the handlebar Helpers, the app instance is available at all times
+ */
+exports.registerRendrApp = function registerRendrApp(app){
+    if (app){
+        Handlebars.app = app;
+    }
+};
+
 /**
  * Register helpers, available on both client and server.
  *
