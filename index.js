@@ -20,7 +20,8 @@ exports.templatePatterns = templateFinder.templatePatterns;
  * `getLayout` should only be used on the server.
  */
 if (typeof window === 'undefined') {
-  exports.getLayout = require('./server/layoutFinder')(Handlebars).getLayout;
+  var serverOnlyPath_layoutFinder = './server/layoutFinder';
+  exports.getLayout = require(serverOnlyPath_layoutFinder)(Handlebars).getLayout;
 } else {
   exports.getLayout = function() {
     throw new Error('getLayout is only available on the server.');

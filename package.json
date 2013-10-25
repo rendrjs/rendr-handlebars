@@ -13,7 +13,8 @@
   "dependencies": {
     "underscore": "~1.4.4",
     "handlebars": "git://github.com/spikebrehm/handlebars.js.git#6bbcf3f2225b0e62d249481d07456698da7da65e",
-    "rendr": ">=0.4.9"
+    "rendr": ">=0.4.9",
+    "amdefine": "~0.1.0"
   },
   "keywords": [
     "rendr",
