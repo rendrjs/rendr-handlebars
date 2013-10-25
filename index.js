@@ -1,8 +1,3 @@
-// {{{ requirejs wrapper
-if (typeof define !== 'function') { var define = require('amdefine')(module); }
-define(function (require, exports, module) {
-// }}}
-
 var Handlebars = require('handlebars')
   , templateFinder = require('./shared/templateFinder')(Handlebars);
 
@@ -52,7 +47,3 @@ exports.registerHelpers = function registerHelpers(helpersModule) {
  */
 var rendrHelpers = require('./shared/helpers');
 exports.registerHelpers(rendrHelpers);
-
-// {{{ requirejs wrapper
-});
-// }}}
