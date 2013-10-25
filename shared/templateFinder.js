@@ -1,3 +1,8 @@
+// {{{ requirejs wrapper
+if (typeof define !== 'function') { var define = require('amdefine')(module); }
+define(function (require, exports, module) {
+// }}}
+
 /*global rendr*/
 var cachedTemplates = {};
 
@@ -53,3 +58,7 @@ module.exports = function(Handlebars) {
     templatePatterns: templatePatterns
   }
 };
+
+// {{{ requirejs wrapper
+});
+// }}}

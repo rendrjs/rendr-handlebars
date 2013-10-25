@@ -1,3 +1,8 @@
+// {{{ requirejs wrapper
+if (typeof define !== 'function') { var define = require('amdefine')(module); }
+define(function (require, exports, module) {
+// }}}
+
 var Handlebars = require('handlebars')
   , templateFinder = require('./shared/templateFinder')(Handlebars);
 
@@ -20,7 +25,8 @@ exports.templatePatterns = templateFinder.templatePatterns;
  * `getLayout` should only be used on the server.
  */
 if (typeof window === 'undefined') {
-  exports.getLayout = require('./server/layoutFinder')(Handlebars).getLayout;
+  var serverOnlyPath_layoutFinder = './server/layoutFinder';
+  exports.getLayout = require(serverOnlyPath_layoutFinder)(Handlebars).getLayout;
 } else {
   exports.getLayout = function() {
     throw new Error('getLayout is only available on the server.');
@@ -46,3 +52,7 @@ exports.registerHelpers = function registerHelpers(helpersModule) {
  */
 var rendrHelpers = require('./shared/helpers');
 exports.registerHelpers(rendrHelpers);
+
+// {{{ requirejs wrapper
+});
+// }}}
