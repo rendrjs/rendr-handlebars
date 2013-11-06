@@ -11,8 +11,11 @@ module.exports = function(Handlebars, getTemplate) {
     view: function(viewName, options) {
       var ViewClass, html, viewOptions, view;
 
-      BaseView = BaseView || require('rendr/shared/base/view');
-      modelUtils = modelUtils || require('rendr/shared/modelUtils');
+      // Another lazy-loading attempt
+      var lazyRequire_baseView = 'rendr/shared/base/view';
+      var lazyRequire_modelUtils = 'rendr/shared/modelUtils';
+      BaseView = BaseView || require(lazyRequire_baseView);
+      modelUtils = modelUtils || require(lazyRequire_modelUtils);
       viewName = modelUtils.underscorize(viewName);
       viewOptions = options.hash || {};
 
