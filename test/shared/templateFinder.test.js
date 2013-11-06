@@ -3,7 +3,7 @@
  * This is a reminder that globals are *bad*.
  */
 global.rendr = {
-  entryPath: process.cwd() + '/test/fixtures'
+  entryPath: process.cwd() + '/test/fixtures/'
 };
 
 var assert = require('assert')
@@ -21,7 +21,7 @@ describe('templateFinder', function() {
        */
       templateAdapter.templatePatterns.unshift({
         pattern: /^other_template_pattern\//,
-        src: rendr.entryPath + '/app/templates/otherTemplates'
+        src: rendr.entryPath + 'app/templates/otherTemplates'
       });
 
       assert.equal('function', typeof templateAdapter.getTemplate('other_template_pattern/home_view'));
