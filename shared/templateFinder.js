@@ -12,7 +12,7 @@ module.exports = function(Handlebars) {
    */
   var templatePatterns = [{
     pattern: /.+/,
-    src: rendr.entryPath + '/app/templates/compiledTemplates'
+    src: rendr.entryPath + 'app/templates/compiledTemplates'
   }];
 
   /**
