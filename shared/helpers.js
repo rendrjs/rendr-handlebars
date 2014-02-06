@@ -25,7 +25,7 @@ module.exports = function(Handlebars, getTemplate) {
       }
 
       // get the Backbone.View based on viewName
-      ViewClass = app.viewAdapter.getView(viewName, app.options.entryPath);
+      ViewClass = app.getView(viewName, app.options.entryPath);
       view = new ViewClass(viewOptions);
 
       // create the outerHTML using className, tagName
