@@ -68,6 +68,12 @@ module.exports = function(Handlebars, getTemplate) {
       context = _.clone(context);
 
       context._app = getProperty('_app', this, options);
+
+      // Allows passing a block into the partial function as well.
+      if(_.isFunction(options.fn)) {
+        context._block = options.fn(context)
+      }
+
       html = template(context);
       return new Handlebars.SafeString(html);
     },
