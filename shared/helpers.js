@@ -38,6 +38,9 @@ module.exports = function(Handlebars, getTemplate) {
 
       // create the outerHTML using className, tagName
       html = view.getHtml();
+      if (!isServer) {
+        view.remove();
+      }
       return new Handlebars.SafeString(html);
     },
 
