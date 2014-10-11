@@ -36,6 +36,11 @@ module.exports = function(Handlebars, getTemplate) {
       ViewClass = BaseView.getView(viewName, app.options.entryPath);
       view = new ViewClass(viewOptions);
 
+      // Allows passing a block into the partial function as well.
+      if(_.isFunction(options.fn)) {
+        context._block = options.fn(context)
+      }
+
       // create the outerHTML using className, tagName
       html = view.getHtml();
       return new Handlebars.SafeString(html);
@@ -68,6 +73,12 @@ module.exports = function(Handlebars, getTemplate) {
       context = _.clone(context);
 
       context._app = getProperty('_app', this, options);
+
+      // Allows passing a block into the partial function as well.
+      if(_.isFunction(options.fn)) {
+        context._block = options.fn(context)
+      }
+
       html = template(context);
       return new Handlebars.SafeString(html);
     },
@@ -102,7 +113,8 @@ function getOptionsFromContext(obj) {
     '_app',
     '_view',
     '_model',
-    '_collection'
+    '_collection',
+    '_block'
   ];
 
   options = keys.reduce(function(memo, key) {
