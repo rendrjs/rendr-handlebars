@@ -54,7 +54,7 @@ module.exports = function(Handlebars, getTemplate) {
 
       // create a list of data attributes
       var attrString = _.inject(viewOptions, function(memo, value, key) {
-        return memo += " data-" + key + "=\"" + _.escape(value) + "\"";
+        return memo += " data-" + key + "=\"" + _.escape(typeof value === 'object' ? JSON.stringify(value) : value) + "\"";
       }, '');
 
       return new Handlebars.SafeString(
