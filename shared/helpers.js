@@ -94,7 +94,9 @@ module.exports = function(Handlebars, getTemplate) {
     },
 
     json: function(object, spacing) {
-      return new Handlebars.SafeString(JSON.stringify(object, null, spacing) || 'null');
+      return new Handlebars.SafeString(
+        JSON.stringify(object, null, spacing).replace(/\//g, '\\/') || 'null'
+      );
     },
 
     /**
