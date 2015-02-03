@@ -1,6 +1,7 @@
 var Handlebars = require('handlebars').create(),
     memo = require('memo-is'),
     chai = require('chai'),
+    sinon = require('sinon'),
     proxyquire = require('proxyquire').noCallThru(),
     expect = chai.expect,
     BaseViewStub = {
@@ -30,7 +31,8 @@ describe('view', function () {
           options: { entryPath: '/path' },
           modelUtils: {
             underscorize: function (name) { return name }
-          }
+          },
+          toJSON: sinon.spy()
         };
       });
 
@@ -108,6 +110,19 @@ describe('view', function () {
         expect(result.string).to.eq(
           '<div data-render="true" data-number_array="[1,2,3]" data-string_array="[&quot;foo&quot;,&quot;bar&quot;]" data-object_array="[{&quot;foo&quot;:&quot;baz&quot;}]" data-fetch_summary="{}" data-view="test"></div>'
         );
+      });
+    });
+
+    context('when the viewOptions contains a model', function () {
+      it('invokes the toJSON property', function () {
+        var result = subject('test', {
+          data: {
+            '_app': app()
+          },
+          hash: { '_app': app() }
+        });
+
+        expect(app().toJSON).to.have.been.called
       });
     });
 
