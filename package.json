@@ -11,8 +11,8 @@
     "url": "http://github.com/rendrjs/rendr-handlebars.git"
   },
   "dependencies": {
-    "handlebars": "^2.0.0",
-    "underscore": "^1.8.2"
+    "handlebars": "^3.0.3",
+    "underscore": "^1.8.3"
   },
   "peerDependencies": {
     "rendr": ">=1.0.0"
