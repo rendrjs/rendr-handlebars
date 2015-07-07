@@ -7,13 +7,14 @@ if (Handlebars['default']) {
 }
 
 module.exports = function(options){
-  var localExports = {},
-      templateFinder = options.templateFinder || require('./shared/templateFinder')(Handlebars);
+  var scopedHandlebarsInstance = Handlebars.create(),
+      localExports = {},
+      templateFinder = options.templateFinder || require('./shared/templateFinder')(scopedHandlebarsInstance);
 
   /**
-   * Export the `Handlebars` object, so other modules can add helpers, partials, etc.
+   * Export the `scopedHandlebarsInstance` object, so other modules can add helpers, partials, etc.
    */
-  localExports.Handlebars = Handlebars;
+  localExports.Handlebars = scopedHandlebarsInstance;
 
   /**
    * `getTemplate` is available on both client and server.
@@ -38,7 +39,7 @@ module.exports = function(options){
     // server only, "hide" it from r.js compiler
     // by having require statement with variable
     var serverOnlyLayoutFinderPath = './server/layoutFinder';
-    localExports.getLayout = require(serverOnlyLayoutFinderPath)(Handlebars).getLayout;
+    localExports.getLayout = require(serverOnlyLayoutFinderPath)(scopedHandlebarsInstance).getLayout;
   } else {
     localExports.getLayout = function() {
       throw new Error('getLayout is only available on the server.');
@@ -51,11 +52,11 @@ module.exports = function(options){
    * Export it so other modules can register helpers as well.
    */
   localExports.registerHelpers = function registerHelpers(helpersModule) {
-    var helpers = helpersModule(Handlebars, localExports.getTemplate);
+    var helpers = helpersModule(scopedHandlebarsInstance, localExports.getTemplate);
 
     for (var key in helpers) {
       if (!helpers.hasOwnProperty(key)) continue;
-      Handlebars.registerHelper(key, helpers[key]);
+      scopedHandlebarsInstance.registerHelper(key, helpers[key]);
     }
   };
 
