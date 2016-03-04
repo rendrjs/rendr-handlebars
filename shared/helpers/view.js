@@ -14,6 +14,16 @@ module.exports = function (Handlebars) {
     viewOptions = options.hash || {};
     app = getProperty('_app', this, options);
 
+    _.forEach(_.omit(viewOptions, 'templateName'), function(value, key) {
+      if (
+        key.match(/[A-Z]/g) &&
+        !app.modelUtils.isModel(value) &&
+        !app.modelUtils.isCollection(value)
+      ) {
+        throw new Error('Template properties should be passed in snake_case: "' + key + '"')
+      }
+    });
+
     // Pass through a reference to the app.
     if (app) {
       viewOptions.app = app;
