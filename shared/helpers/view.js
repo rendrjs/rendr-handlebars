@@ -74,7 +74,7 @@ function getClientPlaceholder(viewName, viewOptions, Handlebars) {
         value = JSON.stringify(value);
       }
     }
-    return memo += " data-" + key + "=\"" + _.escape(value) + "\"";
+    return memo += " data-" + key + "=\"" + _.escape(_.escape(value)) + "\"";
   }, '');
 
   return '<div data-render="true"' + attrString +' data-view="'+ viewName +'"></div>';
