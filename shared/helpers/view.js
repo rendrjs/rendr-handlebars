@@ -20,7 +20,9 @@ module.exports = function (Handlebars) {
         !app.modelUtils.isModel(value) &&
         !app.modelUtils.isCollection(value)
       ) {
-        throw new Error('Template properties should be passed in snake_case: "' + key + '"')
+        throw new Error(
+          'Template properties are case-insensitive, suggest using all-lowercase keys to avoid bugs: "' + key + '"'
+        );
       }
     });
 
