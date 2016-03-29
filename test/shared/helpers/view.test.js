@@ -34,7 +34,9 @@ describe('view', function () {
         return {
           options: { entryPath: '/path' },
           modelUtils: {
-            underscorize: function (name) { return name; }
+            underscorize: function (name) { return name; },
+            isModel: function(model) { return model instanceof ModelClass },
+            isCollection: function(collection) { return collection instanceof CollectionClass }
           }
         };
       });
@@ -189,6 +191,48 @@ describe('view', function () {
           expect(result.string).to.eq(
             '<div data-render="true" data-_block="&lt;div&gt;something&lt;/div&gt;" data-fetch_summary="{}" data-view="test"></div>'
           );
+        });
+      });
+    });
+
+    context('when the viewOptions contains camelCased keys', function() {
+      context('when the key is templateName', function() {
+        it('does not throw an error', function() {
+          expect(subject.bind({
+            _app: app()
+          }, 'test', {
+            hash: { templateName: 'someTemplate' }
+          })).to.not.throw(Error);
+        });
+      });
+
+      context('when the value is a model', function() {
+        it('does not throw an error', function() {
+          expect(subject.bind({
+            _app: app()
+          }, 'test', {
+            hash: { myModel: new ModelClass() }
+          })).to.not.throw(Error);
+        });
+      });
+
+      context('when the value is a collection', function() {
+        it('does not throw an error', function() {
+          expect(subject.bind({
+            _app: app()
+          }, 'test', {
+            hash: { myCollection: new CollectionClass() }
+          })).to.not.throw(Error);
+        });
+      });
+
+      context('when the key is not templateName, and the value is not a model or a collection', function() {
+        it('throws an error', function() {
+          expect(subject.bind({
+            _app: app()
+          }, 'test', {
+            hash: { camelCased: 'ohno' }
+          })).to.throw(Error);
         });
       });
     });

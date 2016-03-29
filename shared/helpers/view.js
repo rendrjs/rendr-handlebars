@@ -14,6 +14,18 @@ module.exports = function (Handlebars) {
     viewOptions = options.hash || {};
     app = getProperty('_app', this, options);
 
+    _.forEach(_.omit(viewOptions, 'templateName'), function(value, key) {
+      if (
+        key.match(/[A-Z]/g) &&
+        !app.modelUtils.isModel(value) &&
+        !app.modelUtils.isCollection(value)
+      ) {
+        throw new Error(
+          'View option keys are case-insensitive, use all-lowercase keys to avoid bugs: "' + key + '"'
+        );
+      }
+    });
+
     // Pass through a reference to the app.
     if (app) {
       viewOptions.app = app;
