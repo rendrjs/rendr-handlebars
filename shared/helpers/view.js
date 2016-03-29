@@ -21,7 +21,7 @@ module.exports = function (Handlebars) {
         !app.modelUtils.isCollection(value)
       ) {
         throw new Error(
-          'Template properties are case-insensitive, suggest using all-lowercase keys to avoid bugs: "' + key + '"'
+          'View option keys are case-insensitive, use all-lowercase keys to avoid bugs: "' + key + '"'
         );
       }
     });
